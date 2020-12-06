@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
 void main() {
+  String code_result = "";
   runApp(MyApp());
 }
 
@@ -57,7 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
     String barcode = await scanner.scan();
     this._outputController.text = barcode;
     _name = this._outputController.text;
+    if(_name != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SecondRoute()),
+      );
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +97,25 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Nhấn vào đây để quét mã',
         child: Icon(Icons.camera),
       ), //
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
     );
   }
 }
