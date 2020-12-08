@@ -41,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _outputController;
 
   String _name = "";
+  String code_value;
 
   @override
   void initState() {
@@ -61,11 +62,15 @@ class _MyHomePageState extends State<MyHomePage> {
     if(_name != null) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SecondRoute()),
+        MaterialPageRoute(builder: (context) => SecondRoute(code_value: _name,)),
       );
     }
   }
 
+  Future _add(){
+    String test = "";
+    test = "Complete";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: new ListView(
         children: <Widget>[
-
           //Phần hiển thị kết quả scan
           new Text("\n  Kết quả quét mã: ", style: new TextStyle(fontSize: 18.0)),
           new TextField(
@@ -101,21 +105,194 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class SecondRoute extends StatelessWidget {
+class SecondRoute extends StatelessWidget{
+
+  String code_value;
+  SecondRoute({this.code_value});
+
+  Future _add(){
+    String test = "";
+    test = "Complete";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Second Route"),
+        title: Text("Hoàn tất quá trình nhập hàng"),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
-        ),
+
+      body: ListView(
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          TextField(
+            decoration: InputDecoration(
+              hintText: "Nhập tên vào đây",
+              labelText: "Tên mặt hàng",
+              labelStyle: TextStyle(
+                fontSize: 24,
+                color: Colors.white
+              ),
+              hintStyle: TextStyle(
+                  color: Colors.grey
+              ),
+              border: OutlineInputBorder(),
+              fillColor: Colors.cyan,
+              filled: false
+            ),
+            keyboardType: TextInputType.name,
+            maxLines: 2,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextField(
+            decoration: InputDecoration(
+                hintText: "Nhập xuất xứ sản phẩm",
+                labelText: "Xuất xứ",
+                labelStyle: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white
+                ),
+                hintStyle: TextStyle(
+                    color: Colors.grey
+                ),
+                border: OutlineInputBorder(),
+                fillColor: Colors.cyan,
+                filled: false
+            ),
+            keyboardType: TextInputType.name,
+            maxLines: 1,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextField(
+            decoration: InputDecoration(
+                hintText: "Nhập loại sản phẩm vào đây",
+                labelText: "Phân loại",
+                labelStyle: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white
+                ),
+                hintStyle: TextStyle(
+                    color: Colors.grey
+                ),
+                border: OutlineInputBorder(),
+                fillColor: Colors.cyan,
+                filled: false
+            ),
+            keyboardType: TextInputType.name,
+            maxLines: 1,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextField(
+            decoration: InputDecoration(
+                hintText: "Nhập số lượng sản phẩm tại đây",
+                labelText: "Số lượng",
+                labelStyle: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white
+                ),
+                hintStyle: TextStyle(
+                    color: Colors.grey
+                ),
+                border: OutlineInputBorder(),
+                fillColor: Colors.cyan,
+                filled: false
+            ),
+            keyboardType: TextInputType.number,
+            maxLines: 1,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextField(
+            decoration: InputDecoration(
+                hintText: "Nhập giá tiền trên một đơn vị sản phẩm tại đây",
+                labelText: "Giá tiền trên 1 sản phẩm",
+                labelStyle: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white
+                ),
+                hintStyle: TextStyle(
+                    color: Colors.grey
+                ),
+                border: OutlineInputBorder(),
+                fillColor: Colors.cyan,
+                filled: false
+            ),
+            keyboardType: TextInputType.number,
+            maxLines: 1,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextField(
+            decoration: InputDecoration(
+                hintText: "Mô tả về sản phẩm tại đây",
+                labelText: "Mô tả",
+                labelStyle: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white
+                ),
+                hintStyle: TextStyle(
+                    color: Colors.grey
+                ),
+                border: OutlineInputBorder(),
+                fillColor: Colors.cyan,
+                filled: false
+            ),
+            keyboardType: TextInputType.text,
+            maxLines: 5,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextField(
+            decoration: InputDecoration(
+                hintText: "Ghi chú thêm cho sản phẩm tại đây",
+                labelText: "Ghi chú",
+                labelStyle: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white
+                ),
+                hintStyle: TextStyle(
+                    color: Colors.grey
+                ),
+                border: OutlineInputBorder(),
+                fillColor: Colors.cyan,
+                filled: false
+            ),
+            keyboardType: TextInputType.text,
+            maxLines: 5,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text("Mã code sản phẩm vừa quét", style: TextStyle(
+            fontSize: 22,
+            color: Colors.white,
+          )),
+          SizedBox(
+            height: 5,
+          ),
+          Text(code_value, style: TextStyle(
+            fontSize: 24,
+            color: Colors.grey,
+          ),)
+        ],
       ),
+      floatingActionButton: FloatingActionButton(
+      onPressed: _add,
+      tooltip: 'Thêm sản phẩm',
+      child: Icon(Icons.save, size: 20),
+      ), //
+      backgroundColor: Colors.white54,
     );
   }
 }
